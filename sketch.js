@@ -13,9 +13,9 @@ var BackgroundImg;
 var ground;
 
 var Score=0;
-//var chance=0;
+var count=0;
 var gameState;
-var launchingForce=70;
+//var launchingForce=70;
 
 function preload(){
   backgroundImg=loadImage("backgroundImg.jpg");
@@ -29,7 +29,7 @@ function setup() {
   world = engine.world;
 
   ground= new Ground(600, 590, 1200, 20);
-  boy=new Boy(105, 530, 180, 230);
+  boy=new Boy(150, 495, 150, 200);
 
   blueLine=new Line(1150, 550, 10, 100, "darkBlue");
 
@@ -38,9 +38,9 @@ function setup() {
   greenLine=new Line(750, 550, 10,100, "green");
 
   redLine=new Line(550, 550, 10, 100, "red");
-  waterballoon= new WaterBalloon(160, 475, 35, 50);
+  waterballoon= new WaterBalloon(95, 450, 35, 50);
 
-  slingshot=new SlingShot(waterballoon.body,{x:160,y:475})
+  slingshot=new SlingShot(waterballoon.body,{x:95,y:450})
 
 }
 
@@ -68,18 +68,35 @@ function draw() {
   fill("DarkBlue");
   text("40", 1160, 550);
 
-  if(gameState="play"){
-    if(Score>=70){
-      textSize(30);
-      text("YOU WIN!!", 550, 250);
-    }
-
-    /* else{
-      textSize(30);
-      text("YOU LOSE", 550, 250);
-
-    }*/
+  if(waterballoon.body.position.x=== blueLine.x && waterballoon.body.position.y>=550 && waterballoon.body.position.y<= 600){
+       Score=Score+40;
   }
+
+  if(waterballoon.body.position.x=== yellowLine.x && waterballoon.body.position.y>=550 && waterballoon.body.position.y<= 600){
+    Score=Score+30;
+}
+
+if(waterballoon.body.position.x=== greenLine.x && waterballoon.body.position.y>=550 && waterballoon.body.position.y<= 600){
+  Score=Score+20;
+}
+if(waterballoon.body.position.x=== redLine.x && waterballoon.body.position.y>=550 && waterballoon.body.position.y<= 600){
+  Score=Score+10;
+}
+
+if(count===3){
+  gameState="end";
+
+  if(Score>=130){
+    textSize(30);
+    text("YOU WIN!!", 550, 250);
+  }
+
+  else{
+    textSize(30);
+    text("YOU LOSE", 550, 250);
+
+  }
+}
 
   ground.display();
   blueLine.display();
