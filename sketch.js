@@ -61,27 +61,15 @@ function draw() {
   textSize(25);
   fill("red");
   text("10", 560, 550);
+
   fill("green");
   text("20", 760, 550);
+
   fill("yellow");
   text("30", 960, 550);
+
   fill("DarkBlue");
   text("40", 1160, 550);
-
-  if(waterballoon.body.position.x=== blueLine.x && waterballoon.body.position.y>=550 && waterballoon.body.position.y<= 600){
-       Score=Score+40;
-  }
-
-  if(waterballoon.body.position.x=== yellowLine.x && waterballoon.body.position.y>=550 && waterballoon.body.position.y<= 600){
-    Score=Score+30;
-}
-
-if(waterballoon.body.position.x=== greenLine.x && waterballoon.body.position.y>=550 && waterballoon.body.position.y<= 600){
-  Score=Score+20;
-}
-if(waterballoon.body.position.x=== redLine.x && waterballoon.body.position.y>=550 && waterballoon.body.position.y<= 600){
-  Score=Score+10;
-}
 
 if(count===3){
   gameState="end";
@@ -107,7 +95,7 @@ if(count===3){
   waterballoon.display();
   slingshot.display();
   
-  drawSprites();
+  //drawSprites();
 }
 
 function mouseDragged()
@@ -118,6 +106,32 @@ function mouseDragged()
 function mouseReleased()
 {
 	slingshot.fly();
+  console.log(mouseReleased);
+  console.log(waterballoon.body.position.x);
+  console.log(waterballoon.body.position.y);
+
+  if(waterballoon.body.position.x >= 1150 && waterballoon.body.position.x<=1160 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
+
+    console.log("bl");
+    Score=Score+40;
+}
+
+if(waterballoon.body.position.x >= 950 && waterballoon.body.position.x<=960 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
+
+  console.log("yl");
+ Score=Score+30;
+}
+
+if(waterballoon.body.position.x >= 750 && waterballoon.body.position.x<=760 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
+
+  console.log("gl");
+Score=Score+20;
+}
+if(waterballoon.body.position.x >= 550 && waterballoon.body.position.x<=560 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
+
+  console.log("rl");
+Score=Score+10;
+}
 }
 
 function keyPressed() {
