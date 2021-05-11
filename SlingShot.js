@@ -3,8 +3,8 @@ class SlingShot{
         var options={
             bodyA:bodyA,
             pointB:pointB, 
-			stiffness:0.04, 
-			length:0.5
+			stiffness:0.02, 
+			length:1
         }
         this.bodyA=bodyA;
 		this.pointB=pointB;
@@ -12,6 +12,7 @@ class SlingShot{
 		World.add(world,this.slingShot);
     }
     attach(body){
+		count+=1;
 		this.slingShot.bodyA=body;
 	}
 
@@ -28,7 +29,7 @@ class SlingShot{
 			var pointB=this.pointB
 
 			strokeWeight(2);
-            stroke("darkBlue")		
+            stroke("white")		
 			line(pointA.x,pointA.y,pointB.x,pointB.y);
 		}
 	}      

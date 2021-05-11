@@ -13,7 +13,8 @@ var BackgroundImg;
 var ground;
 
 var Score=0;
-var count=0;
+var count=1;
+var lineNumber;
 var gameState;
 //var launchingForce=70;
 
@@ -38,9 +39,11 @@ function setup() {
   greenLine=new Line(750, 550, 10,100, "green");
 
   redLine=new Line(550, 550, 10, 100, "red");
+
   waterballoon= new WaterBalloon(95, 450, 35, 50);
 
   slingshot=new SlingShot(waterballoon.body,{x:95,y:450})
+  gameState="Serve";
 
 }
 
@@ -51,13 +54,12 @@ function draw() {
   textSize(25);
   fill(rgb(0, 128, 255));
   text("Score: " + Score, 1050, 50);
+  if(gameState==="Serve"){
+    textSize(25);
+    fill(rgb(0, 128, 255));
+    text("Press the space key to get a second chance!", 350, 50);
+  }
 
-  textSize(25);
-  fill(rgb(0, 128, 255));
-  text("Press the space key to get a second chance!", 350, 50);
-
-  stroke("black");
-  fill("darkBlue");
   textSize(25);
   fill("red");
   text("10", 560, 550);
@@ -67,21 +69,22 @@ function draw() {
 
   fill("yellow");
   text("30", 960, 550);
-
-  fill("DarkBlue");
+  
+  fill("Darkblue");
   text("40", 1160, 550);
 
-if(count===3){
+if(count===4){
   gameState="end";
 
-  if(Score>=130){
+  if(Score>=130 && gameState==="end"){
     textSize(30);
-    text("YOU WIN!!", 550, 250);
+    text("YOU WIN!!😀", 550, 250);
   }
 
-  else{
+  else
+  if(Score<130 && gameState==="end"){
     textSize(30);
-    text("YOU LOSE", 550, 250);
+    text("YOU LOSE😔", 550, 250);
 
   }
 }
@@ -91,6 +94,7 @@ if(count===3){
   greenLine.display();
   yellowLine.display();
   redLine.display();
+
   boy.display();
   waterballoon.display();
   slingshot.display();
@@ -100,37 +104,61 @@ if(count===3){
 
 function mouseDragged()
 {
-	Matter.Body.setPosition(waterballoon.body, {x:mouseX, y:mouseY}) 
+	Matter.Body.setPosition(waterballoon.body, {x:mouseX, y:mouseY});
+  console.log("mouseDragged");
+  console.log(waterballoon.body.position.x);
+  console.log(waterballoon.body.position.y);
+
+  if(waterballoon.body.position.x >= 1150 && waterballoon.body.position.x<=1170 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
+
+    console.log("bl");
+    lineNumber=4;
+  }
+
+  if(waterballoon.body.position.x >= 950 && waterballoon.body.position.x<=970 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
+
+    console.log("yl");
+    lineNumber=3;
+  }
+
+  if(waterballoon.body.position.x >= 750 && waterballoon.body.position.x<=770 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
+
+    console.log("gl");
+    lineNumber=2
+  }
+
+  if(waterballoon.body.position.x >= 550 && waterballoon.body.position.x<=570 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
+
+    console.log("rl");
+    lineNumber=1
+  }
 }
 
 function mouseReleased()
 {
 	slingshot.fly();
-  console.log(mouseReleased);
+  console.log("mouseReleased");
   console.log(waterballoon.body.position.x);
   console.log(waterballoon.body.position.y);
 
-  if(waterballoon.body.position.x >= 1150 && waterballoon.body.position.x<=1160 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
-
-    console.log("bl");
-    Score=Score+40;
+if(lineNumber===4){
+  console.log("bl");
+  Score=Score+40;
 }
 
-if(waterballoon.body.position.x >= 950 && waterballoon.body.position.x<=960 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
-
+if(lineNumber===3){
   console.log("yl");
- Score=Score+30;
+  Score=Score+30;
 }
 
-if(waterballoon.body.position.x >= 750 && waterballoon.body.position.x<=760 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
-
+if(lineNumber===2){
   console.log("gl");
-Score=Score+20;
+  Score=Score+20;
 }
-if(waterballoon.body.position.x >= 550 && waterballoon.body.position.x<=560 && waterballoon.body.position.y>= 550 && waterballoon.body.position.y<=600){
 
+if(lineNumber===1){
   console.log("rl");
-Score=Score+10;
+  Score=Score+10;
 }
 }
 
